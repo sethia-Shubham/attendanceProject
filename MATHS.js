@@ -1,10 +1,10 @@
-const inputBox = document.getElementById("check");
+const inputBox = document.getElementById("inputBox");
 const inputDate = document.getElementById("day");
 const listCont = document.getElementById("listContainer");
 
 function loadData() {
-  const savedList = localStorage.getItem("math");
-  const savedTotals = JSON.parse(localStorage.getItem("totals")) || {
+  const savedList = localStorage.getItem("maths");
+  const savedTotals = JSON.parse(localStorage.getItem("mathsTotal")) || {
     totalCount: 0,
     totalPresent: 0,
     totalAbsent: 0,
@@ -31,7 +31,7 @@ function addDay() {
     return;
   }
 
-  const savedTotals = JSON.parse(localStorage.getItem("totals")) || {
+  const savedTotals = JSON.parse(localStorage.getItem("mathsTotal")) || {
     totalCount: 0,
     totalPresent: 0,
     totalAbsent: 0,
@@ -93,37 +93,38 @@ function addDay() {
 
 function updateTotalsFromList() {
   const items = Array.from(listCont.children);
-  const totals = { totalCount: 0, totalPresent: 0, totalAbsent: 0 };
+  const mathsTotal = { totalCount: 0, totalPresent: 0, totalAbsent: 0 };
 
   items.forEach((li) => {
     const status = li.querySelector("p").textContent.toLowerCase();
-    totals.totalCount += 1;
 
     if (status === "present") {
-      totals.totalPresent += 1;
+      mathsTotal.totalCount += 1;
+      mathsTotal.totalPresent += 1;
     } else if (status === "absent") {
-      totals.totalAbsent += 1;
+      mathsTotal.totalCount += 1;
+      mathsTotal.totalAbsent += 1;
     }
   });
 
-  localStorage.setItem("totals", JSON.stringify(totals));
-  updateTotalsUI(totals);
+  localStorage.setItem("mathsTotal", JSON.stringify(mathsTotal));
+  updateTotalsUI(mathsTotal);
 }
 
-function updateTotalsUI(totals) {
+function updateTotalsUI(mathsTotal) {
   document.querySelector(
     ".total"
-  ).innerHTML = `Total Classes: ${totals.totalCount}`;
+  ).innerHTML = `Total Classes: ${mathsTotal.totalCount}`;
   document.querySelector(
     ".present"
-  ).innerHTML = `Total Present: ${totals.totalPresent}`;
+  ).innerHTML = `Total Present: ${mathsTotal.totalPresent}`;
   document.querySelector(
     ".absent"
-  ).innerHTML = `Total Absent: ${totals.totalAbsent}`;
+  ).innerHTML = `Total Absent: ${mathsTotal.totalAbsent}`;
 }
 
 function saveData() {
-  localStorage.setItem("math", listCont.innerHTML);
+  localStorage.setItem("maths", listCont.innerHTML);
   updateTotalsFromList();
 }
 

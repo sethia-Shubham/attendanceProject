@@ -70,8 +70,15 @@ button {
 button:hover {
     background: #e14d3c;
 }
+#inputBox{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 1rem;
+}
 
-input[type="text"],
 input[type="date"] {
     flex: 1;
     border: none;

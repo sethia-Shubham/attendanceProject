@@ -9,13 +9,17 @@
   <body>
     <div class="container">
       <div class="count">
-        <h4 class="total c">Total Classes : 0</h4>
-        <h4 class="present c">Total Present : 0</h4>
-        <h4 class="absent c">Total Absent : 0</h4>
+        <h4 class="total c">Total Classes: 0</h4>
+        <h4 class="present c">Total Present: 0</h4>
+        <h4 class="absent c">Total Absent: 0</h4>
       </div>
       <h1>Attendance Manager</h1>
       <div class="entry">
-        <input type="text" id="check" placeholder="Enter a task" />
+        <select name="list" id="inputBox" required>
+          <option value="present">Present</option>
+          <option value="absent">Absent</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
         <input type="date" id="day" />
         <button onclick="addDay()">Add Task</button>
       </div>

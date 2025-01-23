@@ -1,10 +1,10 @@
-const inputBox = document.getElementById("check");
+const inputBox = document.getElementById("inputBox");
 const inputDate = document.getElementById("day");
 const listCont = document.getElementById("listContainer");
 
 function loadData() {
   const savedList = localStorage.getItem("cn");
-  const savedTotals = JSON.parse(localStorage.getItem("totals")) || {
+  const savedTotals = JSON.parse(localStorage.getItem("cnwTotal")) || {
     totalCount: 0,
     totalPresent: 0,
     totalAbsent: 0,
@@ -31,7 +31,7 @@ function addDay() {
     return;
   }
 
-  const savedTotals = JSON.parse(localStorage.getItem("totals")) || {
+  const savedTotals = JSON.parse(localStorage.getItem("cnwTotal")) || {
     totalCount: 0,
     totalPresent: 0,
     totalAbsent: 0,
@@ -93,33 +93,34 @@ function addDay() {
 
 function updateTotalsFromList() {
   const items = Array.from(listCont.children);
-  const totals = { totalCount: 0, totalPresent: 0, totalAbsent: 0 };
+  const cnwTotal = { totalCount: 0, totalPresent: 0, totalAbsent: 0 };
 
   items.forEach((li) => {
     const status = li.querySelector("p").textContent.toLowerCase();
-    totals.totalCount += 1;
 
     if (status === "present") {
-      totals.totalPresent += 1;
+      cnwTotal.totalCount += 1;
+      cnwTotal.totalPresent += 1;
     } else if (status === "absent") {
-      totals.totalAbsent += 1;
+      cnwTotal.totalCount += 1;
+      cnwTotal.totalAbsent += 1;
     }
   });
 
-  localStorage.setItem("totals", JSON.stringify(totals));
-  updateTotalsUI(totals);
+  localStorage.setItem("cnwTotal", JSON.stringify(cnwTotal));
+  updateTotalsUI(cnwTotal);
 }
 
-function updateTotalsUI(totals) {
+function updateTotalsUI(cnwTotal) {
   document.querySelector(
     ".total"
-  ).innerHTML = `Total Classes: ${totals.totalCount}`;
+  ).innerHTML = `Total Classes: ${cnwTotal.totalCount}`;
   document.querySelector(
     ".present"
-  ).innerHTML = `Total Present: ${totals.totalPresent}`;
+  ).innerHTML = `Total Present: ${cnwTotal.totalPresent}`;
   document.querySelector(
     ".absent"
-  ).innerHTML = `Total Absent: ${totals.totalAbsent}`;
+  ).innerHTML = `Total Absent: ${cnwTotal.totalAbsent}`;
 }
 
 function saveData() {
